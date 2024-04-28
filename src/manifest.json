@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "叫号精灵",
+  "version": "3.6.3",
+  "description": "此项目旨在改进浙江门诊的数字化叫号队列应用。目前，门诊的队列没有区分成人和儿童，只有预约和普通号两种队列。我们建议在屏幕右下角添加一个小图标，用户可以点击图标打开界面进行操作。叫号后，系统会自动将受种者编码信息填写到登记台和接种台系统的查询框中，方便工作人员进行操作。我们相信这个改进能够提高门诊的工作效率和服务质量。通过这项改进，我们将为门诊提供更好的服务，缩短患者等待时间，提高工作人员的工作效率，同时也为儿童和成人提供更好的服务体验",
+  "icons": {
+    "16": "static/extension_icon.png",
+    "32": "static/extension_icon.png",
+    "48": "static/extension_icon.png",
+    "128": "static/extension_icon.png"
+  },
+  "permissions": ["tabs", "activeTab", "storage", "webRequest"],
+  "background": {
+    "service_worker": "src/serviceWorker/index.ts"
+  },
+  "action": {
+    "default_popup": "src/popup/index.html"
+  },
+  "options_page": "src/options/index.html",
+  "content_scripts": [
+    {
+      "js": ["src/contentScript/initDomEnv.ts", "src/contentScript/index.ts"],
+      "matches": [
+        "http://59.202.53.246/*",
+        "http://59.202.53.246:50041/*",
+        "http://test-ymg.cai-inc.com/*",
+        "http://test-ymg-epi.zlb.cai-inc.com/*",
+        "http://59.202.53.66/*",
+        "http://localhost:7001/admin-index/*",
+        "http://localhost:7002/admin-index/*",
+        "http://192.168.1.160:7001/admin-index/*",
+        "http://192.168.78.106:7001/admin-index/*",
+        "http://www.test-ymg.cai-inc.com/vaccine-inoculate-index/*",
+        "http://www.test-ymg.cai-inc.com/*"
+      ]
+    }
+  ],
+  "host_permissions": ["*://*/*"],
+  "web_accessible_resources": [
+    {
+      "matches": ["<all_urls>"],
+      "resources": ["static/*"],
+      "use_dynamic_url": true
+    }
+  ]
+}
